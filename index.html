@@ -1,0 +1,179 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+    <meta charset="UTF-8">
+    <title>Custom Search Engine, Quotes & Shortcuts</title>
+
+    <style>
+        body {
+            font-family: 'Segoe UI', Tahoma, Geneva, Verdana, sans-serif;
+            margin: 0;
+            padding: 0;
+            background-image: url('a.png');
+            background-size: cover; /* Adjusts the background image size */
+            background-position: center; /* Centers the background image */
+            color: #eee;
+            animation: fadeIn 0.5s ease-in-out;
+        }
+
+        @keyframes fadeIn {
+            from {
+                opacity: 0;
+            }
+
+            to {
+                opacity: 1;
+            }
+        }
+
+        /* Header styling */
+        header {
+            color: #eee;
+            text-align: center;
+            padding: 20px 0;
+            /* Adjusted padding */
+            animation: slideDown 0.5s ease-in-out;
+        }
+
+        @keyframes slideDown {
+            from {
+                transform: translateY(-50px);
+                opacity: 0;
+            }
+
+            to {
+                transform: translateY(0);
+                opacity: 1;
+            }
+        }
+
+        h1 {
+            margin: 0;
+            font-size: 48px;
+            /* Increased font size */
+        }
+
+        /* Search container styling */
+        .search-container {
+            text-align: center;
+            margin-top: 0px;
+            /* Adjusted margin top */
+            animation: slideDown 0.5s ease-in-out;
+            /* Added animation */
+        }
+
+        input[type="text"] {
+            padding: 10px;
+            width: 500px;
+            /* Elongated search bar */
+            border-radius: 20px;
+            /* Rounded corners */
+            border: 1px solid #888;
+            background-color: #444;
+            color: #eee;
+            margin-right: 10px;
+            box-sizing: border-box;
+            /* Include padding in width */
+        }
+
+        button {
+            padding: 10px 20px;
+            cursor: pointer;
+            border-radius: 20px;
+            /* Rounded corners */
+            background-color: #007bff;
+            color: #eee;
+            border: none;
+            margin-top: 20px;
+            /* Added margin top */
+        }
+
+        button:hover {
+            background-color: #0056b3;
+        }
+
+        /* Shortcuts container styling */
+        .shortcuts-container {
+            text-align: center;
+            margin-top: 20px;
+            /* Added margin top */
+        }
+
+        .shortcut {
+            display: inline-block;
+            margin: 10px;
+        }
+
+        .shortcut img {
+            width: 100%;
+            /* Reduced size */
+            height: 40px;
+            /* Reduced size */
+            border-radius: 50%;
+            /* Make circular */
+            cursor: pointer;
+            transition: transform 0.3s ease-in-out;
+        }
+
+        .shortcut img:hover {
+            transform: scale(1.1);
+        }
+
+        .findit {
+            text-align: center;
+            margin-top: 140px;
+            /* font-size: 120; */
+        }
+    </style>
+</head>
+
+<body>
+    <header>
+        <div class="findit">
+            <h1>ᶠⁱⁿᵈᴵᵗ</h1>
+        </div>
+    </header>
+
+    <div class="search-container">
+        <input type="text" id="searchInput" placeholder="Enter your search">
+        <br><br> <!-- Added line breaks to move the button to the next line -->
+        <button onclick="search()">Search</button>
+    </div>
+
+    <div class="shortcuts-container">
+        <div class="shortcut">
+            <a href="https://www.instagram.com"><img src="instagram_logo.png" alt="Instagram"></a>
+        </div>
+        <div class="shortcut">
+            <a href="https://www.facebook.com"><img src="facebook_logo.png" alt="Facebook"></a>
+        </div>
+        <div class="shortcut">
+            <a href="https://www.cricbuzz.com"><img src="cricbuzz_logo.png" alt="Cricbuzz"></a>
+        </div>
+    </div>
+
+    <script>
+        async function fetchQuotes() {
+            const response = await fetch('https://api.quotable.io/random');
+            const data = await response.json();
+
+            const quotesContainer = document.getElementById('quotes');
+            const quoteElement = document.createElement('div');
+            quoteElement.classList.add('quote');
+            quoteElement.innerHTML = `<blockquote>${data.content}</blockquote><p>- ${data.author}</p>`;
+            quotesContainer.appendChild(quoteElement);
+        }
+
+        fetchQuotes();
+
+        function search() {
+            const searchTerm = document.getElementById('searchInput').value;
+            const encodedTerm = encodeURI(searchTerm);
+            const searchURL = `https://www.google.com/search?q=${encodedTerm}`;
+            window.open(searchURL, '_blank');
+        }
+    </script>
+</body>
+
+</html>
